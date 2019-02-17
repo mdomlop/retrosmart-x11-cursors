@@ -5,6 +5,11 @@ EXECUTABLE_NAME=retrosmart-x11-cursors
 
 package: $(EXECUTABLE_NAME)-black $(EXECUTABLE_NAME)-white $(EXECUTABLE_NAME)-black-color $(EXECUTABLE_NAME)-white-color
 
+user_package: $(EXECUTABLE_NAME).tar.xz
+
+retrosmart-x11-cursors.tar.xz: $(EXECUTABLE_NAME)-black $(EXECUTABLE_NAME)-white $(EXECUTABLE_NAME)-black-color $(EXECUTABLE_NAME)-white-color
+	tar cJf $@ $^
+
 retrosmart-x11-cursors-black: black cursors
 	mkdir -p $@/cursors/
 	mv $</*.cursor $@/cursors/
@@ -31,7 +36,7 @@ retrosmart-x11-cursors-white-color: white-color cursors
 
 clean:
 	rm -f $(CURSORS) $(PNGS) $(CONFIGS)
-	rm -rf $(EXECUTABLE_NAME)-*
+	rm -rf $(EXECUTABLE_NAME)*
 
 purge: clean
 	rm -f Makefile preview-*.png preview.gif
