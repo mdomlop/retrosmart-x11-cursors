@@ -1,0 +1,33 @@
+/* XPM */
+static char *zoom_out[] = {
+/* columns rows colors chars-per-pixel */
+"24 24 3 1 ",
+"  c None",
+". c black",
+"X c white",
+/* pixels */
+"    ....                ",
+"  ..XXXX..              ",
+" .XXXXXXXX.             ",
+" .XXXXXXXX.             ",
+".XXXXXXXXXX.            ",
+".XX......XX.            ",
+".XX......XX.            ",
+".XXXXXXXXXX.            ",
+" .XXXXXXXX.             ",
+" .XXXXXXX..             ",
+"  ..XXXX....            ",
+"    ....  ...           ",
+"           ...          ",
+"            ...         ",
+"             ...        ",
+"              .         ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        "
+};

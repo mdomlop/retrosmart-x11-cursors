@@ -1,0 +1,33 @@
+/* XPM */
+static char *pointer[] = {
+/* columns rows colors chars-per-pixel */
+"24 24 3 1 ",
+"  c None",
+". c black",
+"X c white",
+/* pixels */
+"    .                   ",
+"   .X.                  ",
+"   .XX.                 ",
+"   .XX.                 ",
+"   .XX......            ",
+"   .XX.XX.XX..          ",
+" ...XX.XX.XX.X.         ",
+".XX..XXXXXXXXX.         ",
+".XXX.XXXXXXXXX.         ",
+" .XXXXX.X.X.XX.         ",
+"  .XXXX.X.X.XX.         ",
+"  .XXXX.X.X.XX.         ",
+"   .XXX.X.X.X.          ",
+"    .XXXXXXX.           ",
+"     .XXX..X.           ",
+"     .... ...           ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        "
+};
