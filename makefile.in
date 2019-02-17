@@ -51,9 +51,6 @@ user_install:
 user_uninstall:
 	rm -rf ~/.icons/$(EXECUTABLE_NAME)-*/
 
-preview.gif: preview-black.png preview-white.png preview-black-color.png preview-white-color.png
-	convert -loop 0 -delay 750 $^ $@
-
 preview-black.png: black
 	montage -geometry +8+8 $(shell find $^/*/24/ -type f -name "*.xpm" | grep -v '[2-8].xpm' | sort) $@
 
@@ -65,3 +62,6 @@ preview-black-color.png: black-color
 
 preview-white-color.png: white-color
 	montage -geometry +8+8 $(shell find $^/*/24/ -type f -name "*.xpm" | grep -v '[2-8].xpm' | sort) $@
+
+preview.gif: preview-black.png preview-white.png preview-black-color.png preview-white-color.png
+	convert -loop 0 -delay 500 $^ $@
