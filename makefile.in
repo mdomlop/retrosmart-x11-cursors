@@ -65,3 +65,4 @@ preview-white-color.png: white-color
 
 preview.gif: preview-black.png preview-white.png preview-black-color.png preview-white-color.png
 	convert -loop 0 -delay 400 $^ $@
+	rm $^
