@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-for i in *.cursor
-do
-    mv $i $(basename $i .cursor)
-done
 
 for i in $(cat ../../links)
 do

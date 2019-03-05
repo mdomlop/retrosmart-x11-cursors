@@ -1,10 +1,10 @@
 # Maintainer: Manuel Domínguez López <mdomlop at gmail dot com>
 
 _pkgver_year=2019
-_pkgver_month=02
-_pkgver_day=14
+_pkgver_month=03
+_pkgver_day=05
 
-pkgname=retrosmart-x11-cursors
+pkgname=xcursors-retrosmart
 pkgver=1.0b
 pkgrel=1
 pkgdesc='A retrosmart look collection of cursors for X.'
@@ -21,11 +21,6 @@ optdepends=('retrosmart-kvantum-theme: The corresponding theme for Kvantum'
 arch=('any')
 group=('retrosmart')
 #changelog=ChangeLog
-
-prepare() {
-    cd "$startdir"
-    ./configure
-    }
 
 build() {
     cd "$startdir"
