@@ -1,4 +1,6 @@
-# Maintainer: Manuel Domínguez López <mdomlop at gmail dot com>
+# Maintainer: Manuel Domínguez López
+# <mdomlop at gmail dot com>
+# @mdomlop at telegram
 
 _pkgver_year=2019
 _pkgver_month=03
