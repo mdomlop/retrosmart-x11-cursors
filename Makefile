@@ -71,6 +71,13 @@ user_install:
 user_uninstall:
 	rm -rf ~/.icons/$(NAME)-*/
 
+user_install:
+	mkdir -p ~/.icons/
+	cp -r $(NAME)-*/ ~/.icons/
+
+user_uninstall:
+	rm -rf ~/.icons/$(NAME)-*/
+
 preview-%.png: src/%
 	montage -geometry +8+8 $(shell \
 	find $^/24/ -type f -name "*.xpm" | grep -v '[2-8].xpm' | sort) $@

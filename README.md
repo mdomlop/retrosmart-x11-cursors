@@ -12,13 +12,11 @@ Installation
 
 For a system-wide installation run:
 
-        $ ./configure
         $ make
         # make install
 
 For a user-only installation run:
 
-        $ ./configure
         $ make
         # make user_install
 
