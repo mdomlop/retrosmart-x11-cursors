@@ -12,27 +12,32 @@ Installation
 
 For a system-wide installation run:
 
-        $ make
-        # make install
+    $ make
+    # make install
 
 For a user-only installation run:
 
-        $ make
-        # make user_install
+    $ make
+    # make user_install
 
+Alternatively you can build and install a Arch Linux package:
+
+    $ makepkg -d
+    # pacman -U xcursors-retrosmart-*.pkg.tar.gz
+
+Uninstallation
+--------------
 
 For uninstall run:
 
     # make uninstall
 or:
     $ make user_uninstall
-
-Alternatively you can build a Arch Linux package and install it:
-
-    $ makepkg
-    # pacman -U retrosmart-x11-cursors-*.pkg.tar.gz
+or:
+    # pacman -Rsc xcursors-retrosmart
 
 Dependencies
 ------------
 
-For a successful compilation you need *imagemagick* and *xcursorgen*.
+For a successful compilation you need *imagemagick* for generate PNGs from XPMs
+and *xcursorgen* for generate the cursors from the PNGs.
