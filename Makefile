@@ -2,30 +2,27 @@ PREFIX='/usr'
 DESTDIR=''
 NAME := retrosmart
 CONFIGS := $(wildcard src/*/*.in)
-THEMESSRC := $(wildcard src/*)
-XPM := $(wildcard src/*/*/*.xpm)
-PNG := $(subst .xpm,.png,$(XPM))
+XPMS := $(wildcard src/*/*/*.xpm)
+PNGS := $(subst .xpm,.png,$(XPMS))
 THEMES := $(subst src/,$(NAME)-,$(wildcard src/*))
-INDEX := $(subst src/,$(NAME)-,$(wildcard src/*/index.theme))
+INDICES := $(subst src/,$(NAME)-,$(wildcard src/*/index.theme))
 CURSORS := $(join $(subst src/,$(NAME)-,$(dir $(CONFIGS))),\
 $(addprefix cursors/,$(notdir $(basename $(CONFIGS)))))
 
-default: pngs themes index cursors
+default: pngs themes indices cursors
 
 github: preview.gif clean
 
-pngs: $(PNG)
+pngs: $(PNGS)
 %.png: %.xpm
 	convert $^ $@
 
 cursors: $(CURSORS)
-
-
 $(CURSORS):
 	xcursorgen -p $(subst cursors,,$(subst $(NAME)-,src/,$(@D))) \
 	$(subst cursors,,$(subst $(NAME)-,src/,$(@D)))$(notdir $@).in $@
 
-index: $(INDEX)
+indices: $(INDICES)
 $(NAME)-%/index.theme: src/%/index.theme
 	cp $^ $@
 
@@ -34,10 +31,8 @@ $(NAME)-%: src/%
 	mkdir -p $@/cursors
 	cd $@/cursors; sh ../../makelinks.sh
 
-preview: preview.gif
-
 clean_pngs:
-	rm -f $(PNG)
+	rm -f $(PNGS)
 
 clean_cursors:
 	rm -f $(CURSORS)
@@ -71,12 +66,8 @@ user_install:
 user_uninstall:
 	rm -rf ~/.icons/$(NAME)-*/
 
-user_install:
-	mkdir -p ~/.icons/
-	cp -r $(NAME)-*/ ~/.icons/
-
-user_uninstall:
-	rm -rf ~/.icons/$(NAME)-*/
+arch_pkg:
+	makepkg -d
 
 preview-%.png: src/%
 	montage -geometry +8+8 $(shell \
@@ -85,5 +76,6 @@ preview-%.png: src/%
 preview.gif: $(addsuffix .png,$(subst src/,preview-,$(wildcard src/*)))
 	convert -loop 0 -delay 400 $^ $@
 
-.PHONY: default themes package pngs cursors preview github \
-clean_pngs clean_cursors clean_themes clean_arch clean_preview
+.PHONY: default themes package pngs cursors github \
+clean_pngs clean_cursors clean_themes clean_arch clean_preview \
+install uninstall user_install user_uninstall arch_pkg
