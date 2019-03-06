@@ -34,7 +34,7 @@ For uninstall run:
 or:
     $ make user_uninstall
 or:
-    # pacman -Rsc xcursors-retrosmart
+    # pacman -Rsc xcursor-retrosmart
 
 Dependencies
 ------------
