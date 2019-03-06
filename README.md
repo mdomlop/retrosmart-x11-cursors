@@ -23,7 +23,7 @@ For a user-only installation run:
 Alternatively you can build and install a Arch Linux package:
 
     $ makepkg -d
-    # pacman -U xcursors-retrosmart-*.pkg.tar.gz
+    # pacman -U xcursor-retrosmart-*.pkg.tar.gz
 
 Uninstallation
 --------------
@@ -31,9 +31,13 @@ Uninstallation
 For uninstall run:
 
     # make uninstall
+
 or:
+
     $ make user_uninstall
+
 or:
+
     # pacman -Rsc xcursor-retrosmart
 
 Dependencies
