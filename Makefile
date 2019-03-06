@@ -41,7 +41,7 @@ clean_themes:
 	rm -rf $(THEMES)
 
 clean_arch:
-	rm -f xcursors-*
+	rm -f xcursor-$(NAME)-*
 
 clean_preview:
 	rm -f preview-*.png
