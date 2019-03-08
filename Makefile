@@ -1,6 +1,6 @@
 PREFIX='/usr'
 DESTDIR=''
-NAME := retrosmart
+NAME := retrosmart-xcursors
 CONFIGS := $(wildcard src/*/*.in)
 XPMS := $(wildcard src/*/*/*.xpm)
 PNGS := $(subst .xpm,.png,$(XPMS))
