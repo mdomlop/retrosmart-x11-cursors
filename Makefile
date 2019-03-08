@@ -41,7 +41,7 @@ clean_themes:
 	rm -rf $(THEMES)
 
 clean_arch:
-	rm -f xcursor-$(NAME)-*
+	rm -f xcursor-retrosmart-*.pkg.tar.xz
 
 clean_preview:
 	rm -f preview-*.png
