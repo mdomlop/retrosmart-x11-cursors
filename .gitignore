@@ -1,3 +1,5 @@
 wop/
 .*
 !.gitignore
+retrosmart-*
+xcursor-*
