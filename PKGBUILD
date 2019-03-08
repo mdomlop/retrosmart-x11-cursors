@@ -21,7 +21,7 @@ optdepends=('retrosmart-kvantum-theme: The corresponding theme for Kvantum'
             'retrosmart-xfwm4-themes: The corresponding XFwm4 themes')
 arch=('any')
 group=('retrosmart')
-#changelog=ChangeLog
+changelog=ChangeLog
 
 build() {
     cd "$startdir"
