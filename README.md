@@ -25,6 +25,10 @@ Alternatively you can build and install a Arch Linux package:
     $ makepkg -d
     # pacman -U xcursor-retrosmart-*.pkg.tar.gz
 
+or install it from AUR:
+
+    $ trizen -S xcursor-retrosmart
+
 Uninstallation
 --------------
 
