@@ -15,7 +15,11 @@ github: preview.gif clean
 
 pngs: $(PNGS)
 %.png: %.xpm
-	convert $^ $@
+	# With shadow:
+	#convert $^ $@
+	# With shadow:
+	#convert $^ $@
+	montage $^ -background none -shadow -geometry -0-0 -background none $@
 
 cursors: $(CURSORS)
 $(CURSORS):
