@@ -15,11 +15,12 @@ github: preview.gif clean
 
 pngs: $(PNGS)
 %.png: %.xpm
+	echo $^ | grep '\-shadow' && montage $^ -background none -shadow -geometry -0-0 -background none $@ || convert $^ $@
 	# With shadow:
 	#convert $^ $@
 	# With shadow:
 	#convert $^ $@
-	montage $^ -background none -shadow -geometry -0-0 -background none $@
+	#montage $^ -background none -shadow -geometry -0-0 -background none $@
 
 cursors: $(CURSORS)
 $(CURSORS):
