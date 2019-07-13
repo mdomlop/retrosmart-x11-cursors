@@ -31,6 +31,12 @@ $(NAME)-%: src/%
 	mkdir -p $@/cursors
 	cd $@/cursors; sh ../../makelinks.sh
 
+opendesktop: retrosmart-x11-cursors.tar.xz
+retrosmart-x11-cursors.tar.xz: default
+	tar cJf $@ $(THEMES)
+clean_opendesktop:
+	rm -f retrosmart-x11-cursors.tar.xz
+
 clean_pngs:
 	rm -f $(PNGS)
 
@@ -46,7 +52,7 @@ clean_arch:
 clean_preview:
 	rm -f preview-*.png
 
-clean: clean_pngs clean_cursors clean_themes clean_arch clean_preview
+clean: clean_pngs clean_cursors clean_themes clean_arch clean_preview clean_opendesktop
 
 purge: clean
 	rm -f preview.gif
@@ -78,4 +84,4 @@ preview.gif: $(addsuffix .png,$(subst src/,preview-,$(wildcard src/*)))
 
 .PHONY: default themes package pngs cursors github \
 clean_pngs clean_cursors clean_themes clean_arch clean_preview \
-install uninstall user_install user_uninstall arch_pkg
+install uninstall user_install user_uninstall arch_pkg opendesktop clean_opendesktop
