@@ -3,11 +3,11 @@
 # @mdomlop at telegram
 
 _pkgver_year=2019
-_pkgver_month=07
-_pkgver_day=13
+_pkgver_month=11
+_pkgver_day=20
 
 pkgname=xcursor-retrosmart
-pkgver=1.2
+pkgver=2.0
 pkgrel=1
 pkgdesc='A retrosmart look collection of cursors for X.'
 url=https://github.com/mdomlop/retrosmart-x11-cursors
