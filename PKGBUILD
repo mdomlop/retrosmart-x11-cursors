@@ -26,10 +26,13 @@ changelog=ChangeLog
 
 build() {
     cd "$startdir"
-    make
+    make SHADOW=
+    make clean_pngs
+    make SHADOW=True
     }
 
 package() {
     cd "$startdir"
-    make install DESTDIR=$pkgdir
+    make install DESTDIR=$pkgdir SHADOW=
+    make install DESTDIR=$pkgdir SHADOW=True
 }
