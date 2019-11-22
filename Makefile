@@ -21,7 +21,6 @@ DIRLINKS := $(foreach dir,$(DIRS),$(addprefix $(dir)/cursors/,$(LINKS)))
 XPMS := $(wildcard src/*/*/*.xpm)
 PNGS := $(subst .xpm,.png,$(XPMS))
 
-
 default: pngs dirs indices cursors linkcursors
 
 dirs: $(CURSORDIRS)
@@ -178,7 +177,8 @@ github: preview.gif clean
 opendesktop: retrosmart-x11-cursors.tar.xz
 
 retrosmart-x11-cursors.tar.xz: default
-	tar cJf $@ $(THEMES)
+	tar cJf $@ $(DIRS)
+
 clean_opendesktop:
 	rm -f retrosmart-x11-cursors.tar.xz
 
@@ -212,10 +212,10 @@ uninstall:
 
 user_install:
 	mkdir -p ~/.icons/
-	cp -r $(NAME)-*/ ~/.icons/
+	cp -r $(DIRS) ~/.icons/
 
 user_uninstall:
-	rm -rf ~/.icons/$(NAME)-*/
+	rm -rf $(addprefix ~/.icons/,$(DIRS) $(addsuffix -shadow,$(DIRS)))
 
 arch_pkg:
 	makepkg -d
@@ -227,6 +227,6 @@ preview-%.png: src/%
 preview.gif: $(addsuffix .png,$(subst src/,preview-,$(wildcard src/*)))
 	convert -loop 0 -delay 400 $^ $@
 
-.PHONY: default themes package pngs cursors github \
+.PHONY: default dirs package pngs cursors github \
 clean_pngs clean_cursors clean_themes clean_arch clean_preview \
 install uninstall user_install user_uninstall arch_pkg opendesktop clean_opendesktop
