@@ -4,7 +4,7 @@
 
 _pkgver_year=2019
 _pkgver_month=11
-_pkgver_day=20
+_pkgver_day=23
 
 pkgname=xcursor-retrosmart
 pkgver=2.0
@@ -26,13 +26,10 @@ changelog=ChangeLog
 
 build() {
     cd "$startdir"
-    make SHADOW=
-    make clean_pngs
-    make SHADOW=True
+    make
     }
 
 package() {
     cd "$startdir"
-    make install DESTDIR=$pkgdir SHADOW=
-    make install DESTDIR=$pkgdir SHADOW=True
+    make install DESTDIR=$pkgdir
 }

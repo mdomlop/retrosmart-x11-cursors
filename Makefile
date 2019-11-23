@@ -21,7 +21,9 @@ DIRLINKS := $(foreach dir,$(DIRS),$(addprefix $(dir)/cursors/,$(LINKS)))
 XPMS := $(wildcard src/*/*/*.xpm)
 PNGS := $(subst .xpm,.png,$(XPMS))
 
-default: pngs dirs indices cursors linkcursors
+default: pngs dirs indices cursors linkcursors clean_pngs
+	$(MAKE) shadow SHADOW=True
+shadow: pngs dirs indices cursors linkcursors
 
 dirs: $(CURSORDIRS)
 %/cursors: src/%.theme
@@ -177,7 +179,7 @@ github: preview.gif clean
 opendesktop: retrosmart-x11-cursors.tar.xz
 
 retrosmart-x11-cursors.tar.xz: default
-	tar cJf $@ $(DIRS)
+	tar cJf $@ $(DIRS) $(addsuffix -shadow,$(DIRS))
 
 clean_opendesktop:
 	rm -f retrosmart-x11-cursors.tar.xz
@@ -204,15 +206,15 @@ purge: clean
 
 install:
 	install -d -m 755 $(DESTDIR)/$(PREFIX)/share/icons
-	chmod -R u+rwX,go+rX $(DIRS)
-	cp -r $(DIRS) $(DESTDIR)/$(PREFIX)/share/icons/
+	chmod -R u+rwX,go+rX $(DIRS) $(addsuffix -shadow,$(DIRS))
+	cp -r $(DIRS) $(addsuffix -shadow,$(DIRS)) $(DESTDIR)/$(PREFIX)/share/icons/
 
 uninstall:
 	echo rm -rf $(addprefix $(DESTDIR)/$(PREFIX)/share/icons/,$(DIRS) $(addsuffix -shadow,$(DIRS)))
 
 user_install:
 	mkdir -p ~/.icons/
-	cp -r $(DIRS) ~/.icons/
+	cp -r $(DIRS) $(addsuffix -shadow,$(DIRS)) ~/.icons/
 
 user_uninstall:
 	rm -rf $(addprefix ~/.icons/,$(DIRS) $(addsuffix -shadow,$(DIRS)))
