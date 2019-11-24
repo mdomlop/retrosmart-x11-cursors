@@ -1,57 +1,92 @@
-PREFIX='/usr'
-DESTDIR=''
+PREFIX = '/usr'
+DESTDIR = ''
 NAME := retrosmart-xcursors
 
-SHADOW=
-THEMES:= $(if $(SHADOW), $(wildcard src/shadow/*.theme),$(wildcard src/*.theme))
+CURSORSNAMES := alias all-scroll bottom_left_corner bottom_right_corner bottom_side cell center_ptr closedhand color-picker col-resize context-menu copy crosshair default dnd-move dnd-no-drop down-arrow draft fleur help left-arrow left_side no-drop not-allowed openhand pencil pirate pointer progress right-arrow right_ptr right_side row-resize size_bdiag size_fdiag size_hor size_ver text top_left_corner top_right_corner top_side up-arrow vertical-text wait wayland-cursor x-cursor zoom-in zoom-out
+
+LINKSNAMES := 3085a0e285430894940527032f8b26df 640fb0e74195791501fd1ed57b41487f a2a266d0498c3104214a47bd64ab0fc8 link plus 03b6e0fcb3499374a867c041f52298f0 move split_h 1081e37283d90000800003c07f3ef6bf 6407b0e94181790501fd1e167b474872 b66166c04f8c3109214a4fbd64a50fc8 dnd-copy cross left_ptr size-bdiag size-fdiag size-hor size-ver top_left_arrow 4498f0e0c1937ffe01fd06f973665830 9081237383d90e509aa00f00170e968f dnd-none fcf21c00b30f7e3f83fe0dfd12e71cff size_all 5c6cd98b3f3ebcb1f9c7f1c204630408 d9ce0ab605698f320427677b458ad60b left_ptr_help question_arrow whats_this arrow forbidden circle crossed_circle 9d800788f1b08800ae810202380a0822 e29285e634086352946a0e7090d73106 hand1 hand2 pointing_hand 00000000000000020006000e7e9ffc3f 08e8e1c95fe2fc01f976f1e063a24ccd 3ecb610c1bf2410f44200f48c40d3599 half-busy left_ptr_watch split_v ne-resize sw-resize nw-resize se-resize e-resize h_double_arrow sb_h_double_arrow w-resize 00008160000006810000408080010102 n-resize sb_v_double_arrow s-resize v_double_arrow ibeam xterm watch
+
+### SOURCE: ###
+
+CONFIGS := $(wildcard src/*.in)
+
+THEMES := $(wildcard src/retrosmart-xcursor-*)
+BASES := $(wildcard src/base-*)
 
 DIRS := $(notdir $(basename $(THEMES)))
-CURSORDIRS := $(addsuffix /cursors,$(DIRS))
-INDICES := $(addsuffix /index.theme,$(DIRS))
-
-CURSORS := alias all-scroll bottom_left_corner bottom_right_corner bottom_side cell center_ptr closedhand color-picker col-resize context-menu copy crosshair default dnd-move dnd-no-drop down-arrow draft fleur help left-arrow left_side no-drop not-allowed openhand pencil pirate pointer progress right-arrow right_ptr right_side row-resize size_bdiag size_fdiag size_hor size_ver text top_left_corner top_right_corner top_side up-arrow vertical-text wait wayland-cursor x-cursor zoom-in zoom-out
-LINKS := 3085a0e285430894940527032f8b26df 640fb0e74195791501fd1ed57b41487f a2a266d0498c3104214a47bd64ab0fc8 link plus 03b6e0fcb3499374a867c041f52298f0 move split_h 1081e37283d90000800003c07f3ef6bf 6407b0e94181790501fd1e167b474872 b66166c04f8c3109214a4fbd64a50fc8 dnd-copy cross left_ptr size-bdiag size-fdiag size-hor size-ver top_left_arrow 4498f0e0c1937ffe01fd06f973665830 9081237383d90e509aa00f00170e968f dnd-none fcf21c00b30f7e3f83fe0dfd12e71cff size_all 5c6cd98b3f3ebcb1f9c7f1c204630408 d9ce0ab605698f320427677b458ad60b left_ptr_help question_arrow whats_this arrow forbidden circle crossed_circle 9d800788f1b08800ae810202380a0822 e29285e634086352946a0e7090d73106 hand1 hand2 pointing_hand 00000000000000020006000e7e9ffc3f 08e8e1c95fe2fc01f976f1e063a24ccd 3ecb610c1bf2410f44200f48c40d3599 half-busy left_ptr_watch split_v ne-resize sw-resize nw-resize se-resize e-resize h_double_arrow sb_h_double_arrow w-resize 00008160000006810000408080010102 n-resize sb_v_double_arrow s-resize v_double_arrow ibeam xterm watch
-
-CONFIGS := $(addprefix src/,$(addsuffix .in,$(CURSORS)))
-
-DIRCURSORS := $(foreach dir,$(DIRS),$(addprefix $(dir)/cursors/,$(CURSORS)))
-DIRLINKS := $(foreach dir,$(DIRS),$(addprefix $(dir)/cursors/,$(LINKS)))
+CURSORDIRS := $(DIRS:=/cursors)
+INDICES := $(DIRS:=/index.theme)
+CURSORS := $(foreach dir,$(DIRS),$(addprefix $(dir)/cursors/,$(CURSORSNAMES)))
+LINKS := $(foreach dir,$(DIRS),$(addprefix $(dir)/cursors/,$(LINKSNAMES)))
+XPMS := $(wildcard src/*/*.xpm)
+PNGS := $(subst src/,png/,$(XPMS:.xpm=.png))
+BUILDDIRS := $(sort $(CURSORDIRS))
+PNGDIRS := $(sort $(dir $(PNGS)))
 
 
-XPMS := $(wildcard src/*/*/*.xpm)
-PNGS := $(subst .xpm,.png,$(XPMS))
+shadowthemes: $(THEMES:=-shadow) $(BASES:=-shadow)
+	make -j1 build
 
-default: pngs dirs indices cursors linkcursors clean_pngs
-	$(MAKE) shadow SHADOW=True
-shadow: pngs dirs indices cursors linkcursors
+build: dirs indices pngs copypngs cursors linkcursors
 
-dirs: $(CURSORDIRS)
-%/cursors: src/%.theme
-	mkdir -p $@
-%/cursors: src/shadow/%.theme
+src/%-shadow: src/%
+	cd src; cp -a $(notdir $^) $(notdir $@)
+	test -f $@/shadow.theme && mv $@/shadow.theme $@/index.theme || true
+
+dirs: $(BUILDDIRS)
+$(BUILDDIRS):
 	mkdir -p $@
 
 indices: $(INDICES)
-%/index.theme: src/%.theme
-	cp $^ $@
-%/index.theme: src/shadow/%.theme
+%/index.theme: src/%/index.theme
 	cp $^ $@
 
+pngdirs: $(PNGDIRS)
+$(PNGDIRS):
+	mkdir -p $@
 
-cursors: $(DIRCURSORS)
-$(DIRCURSORS): $(addsuffix .in,$(addprefix src/,$(notdir $(basename $@))))
-	@echo Building $@
-	@xcursorgen -p $(subst retrosmart-xcursor,src/base,$(subst /cursors/,,$(subst -shadow,,$(dir $@)))) $(addsuffix .in,$(addprefix src/,$(notdir $(basename $@)))) $@ 2> /dev/null ||\
-	xcursorgen -p src/base-common-color $(addsuffix .in,$(addprefix src/,$(notdir $(basename $@)))) $@ 2>/dev/null ||\
-	xcursorgen -p $(subst retrosmart-xcursor,src/base,$(subst -color/cursors/,,$(subst -shadow,,$(dir $@)))) $(addsuffix .in,$(addprefix src/,$(notdir $(basename $@)))) $@ 2>/dev/null ||\
-	xcursorgen -p src/base-common $(addsuffix .in,$(addprefix src/,$(notdir $(basename $@)))) $@
+pngs: pngdirs $(PNGS)
+copypngs:
+	for dir in png/retrosmart-xcursor-*-color;\
+	do for file in `echo $$dir | cut -d- -f-3`;\
+	do cp -nv $$file/*.png $$dir;\
+	done;\
+	done
+	for dir in `ls -d png/retrosmart-xcursor-* | grep -v shadow`;\
+	do for file in png/base-common/*.png;\
+	do cp -v $$file $$dir;\
+	done;\
+	done
+	for dir in `ls -d png/retrosmart-xcursor-*-color | grep -v shadow`;\
+	do for file in png/base-common-color/*.png;\
+	do cp -v $$file $$dir;\
+	done;\
+	done
+	for dir in png/retrosmart-xcursor-*-color-shadow;\
+	do for file in `echo $$dir | cut -d- -f-3`-shadow;\
+	do cp -nv $$file/*.png $$dir;\
+	done;\
+	done
+	for dir in png/retrosmart-xcursor-*-shadow;\
+	do for file in png/base-common-shadow/*.png;\
+	do cp -v $$file $$dir;\
+	done;\
+	done
+	for dir in png/retrosmart-xcursor-*color-shadow;\
+	do for file in png/base-common-color-shadow/*.png;\
+	do cp -v $$file $$dir;\
+	done;\
+	done
 
-linkcursors: $(DIRLINKS)
+png/%.png: src/%.xpm
+	@echo Generating $@
+	@echo $@ | grep '\-shadow' > /dev/null && montage $^ -background none -shadow -geometry -0-0 -background none $@ || convert $^ $@
 
-pngs: $(PNGS)
-%.png: %.xpm
-	$(if $(SHADOW),montage $^ -background none -shadow -geometry -0-0 -background none $@,convert $^ $@)
+cursors: $(CURSORS)
+$(CURSORS): $(addsuffix .in,$(addprefix src/,$(notdir $(basename $@))))
+	xcursorgen -p $(addprefix png/,$(subst /cursors/,,$(dir $@))) $(addsuffix .in,$(addprefix src/,$(notdir $(basename $@)))) $@
 
+linkcursors: $(LINKS)
 %/00000000000000020006000e7e9ffc3f: %/progress
 	cd $(dir $@); ln -s $(notdir $^) $(notdir $@)
 %/00008160000006810000408080010102: %/size_ver
@@ -179,19 +214,19 @@ github: preview.gif clean
 opendesktop: retrosmart-x11-cursors.tar.xz
 
 retrosmart-x11-cursors.tar.xz: default
-	tar cJf $@ $(DIRS) $(addsuffix -shadow,$(DIRS))
+	tar cJf $@ $(DIRS)
 
 clean_opendesktop:
 	rm -f retrosmart-x11-cursors.tar.xz
 
 clean_pngs:
-	rm -f $(PNGS)
+	rm -rf png
 
 clean_cursors:
 	rm -f $(CURSORS)
 
 clean_dirs:
-	rm -rf $(DIRS) $(addsuffix -shadow,$(DIRS))
+	rm -rf $(DIRS)
 
 clean_arch:
 	rm -f xcursor-retrosmart-*.pkg.tar.xz
@@ -199,25 +234,30 @@ clean_arch:
 clean_preview:
 	rm -f preview-*.png
 
-clean: clean_pngs clean_cursors clean_dirs clean_arch clean_preview clean_opendesktop
+clean_shadow:
+	rm -rf src/*-shadow
+
+clean_build: clean_pngs clean_dirs clean_shadow
+
+clean: clean_build clean_arch clean_preview clean_opendesktop
 
 purge: clean
 	rm -f preview.gif
 
 install:
 	install -d -m 755 $(DESTDIR)/$(PREFIX)/share/icons
-	chmod -R u+rwX,go+rX $(DIRS) $(addsuffix -shadow,$(DIRS))
-	cp -r $(DIRS) $(addsuffix -shadow,$(DIRS)) $(DESTDIR)/$(PREFIX)/share/icons/
+	chmod -R u+rwX,go+rX $(DIRS)
+	cp -r $(DIRS) $(DESTDIR)/$(PREFIX)/share/icons/
 
 uninstall:
-	echo rm -rf $(addprefix $(DESTDIR)/$(PREFIX)/share/icons/,$(DIRS) $(addsuffix -shadow,$(DIRS)))
+	echo rm -rf $(addprefix $(DESTDIR)/$(PREFIX)/share/icons/,$(DIRS))
 
 user_install:
 	mkdir -p ~/.icons/
-	cp -r $(DIRS) $(addsuffix -shadow,$(DIRS)) ~/.icons/
+	cp -r $(DIRS) ~/.icons/
 
 user_uninstall:
-	rm -rf $(addprefix ~/.icons/,$(DIRS) $(addsuffix -shadow,$(DIRS)))
+	rm -rf $(addprefix ~/.icons/,$(DIRS))
 
 arch_pkg:
 	makepkg -d

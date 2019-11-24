@@ -12,12 +12,12 @@ Installation
 
 For a system-wide installation run:
 
-    $ make
+    $ make -j1
     # make install
 
 For a user-only installation run:
 
-    $ make
+    $ make -j1
     # make user_install
 
 Alternatively you can build and install a Arch Linux package:
