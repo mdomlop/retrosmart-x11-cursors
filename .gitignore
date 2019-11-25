@@ -1,4 +1,6 @@
-old/
-./wop/
+/old
+/wop
 .*
-!.gitignore
+!/.gitignore
+/retrosmart-*
+/xcursor-*

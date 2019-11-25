@@ -211,8 +211,8 @@ github: preview.gif clean
 
 opendesktop: retrosmart-x11-cursors.tar.xz
 
-retrosmart-x11-cursors.tar.xz: default
-	tar cJf $@ $(THEMES)
+retrosmart-x11-cursors.tar.xz: clean default
+	tar cJf $@ $(THEMES) $(THEMES:=-shadow)
 
 clean_opendesktop:
 	rm -f retrosmart-x11-cursors.tar.xz
