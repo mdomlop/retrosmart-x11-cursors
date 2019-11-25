@@ -1,0 +1,34 @@
+/* XPM */
+static char *context_menu[] = {
+/* columns rows colors chars-per-pixel */
+"24 24 4 1 ",
+"  c None",
+". c white",
+"X c black",
+"+ c blue",
+/* pixels */
+"X                       ",
+"XX                      ",
+"X.X                     ",
+"X..X                    ",
+"X...X                   ",
+"X....X                  ",
+"X.....X                 ",
+"X......XXXXXXXXXX       ",
+"X.......X.......X       ",
+"X...............X       ",
+"X.....XXX.+++++.X       ",
+"X..X..X X.......X       ",
+"X.X X..XX.XXXXX.X       ",
+"XX  X..XX.......X       ",
+"X    X..X.XXXXX.X       ",
+"     X..X.......X       ",
+"      XXXXXXXXXXX       ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        "
+};
