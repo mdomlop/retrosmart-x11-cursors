@@ -2,8 +2,8 @@
 static char * wait16_xpm[] = {
 "24 24 3 1",
 " 	c None",
-".	c black",
-"+	c white",
+".	c #000000",
+"+	c #FFFFFF",
 "                        ",
 "      .............     ",
 "      ..+++++++++..     ",

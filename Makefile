@@ -6,29 +6,27 @@ CURSORSNAMES := alias all-scroll bottom_left_corner bottom_right_corner bottom_s
 
 LINKSNAMES := 3085a0e285430894940527032f8b26df 640fb0e74195791501fd1ed57b41487f a2a266d0498c3104214a47bd64ab0fc8 link plus 03b6e0fcb3499374a867c041f52298f0 move split_h 1081e37283d90000800003c07f3ef6bf 6407b0e94181790501fd1e167b474872 b66166c04f8c3109214a4fbd64a50fc8 dnd-copy cross left_ptr size-bdiag size-fdiag size-hor size-ver top_left_arrow 4498f0e0c1937ffe01fd06f973665830 9081237383d90e509aa00f00170e968f dnd-none fcf21c00b30f7e3f83fe0dfd12e71cff size_all 5c6cd98b3f3ebcb1f9c7f1c204630408 d9ce0ab605698f320427677b458ad60b left_ptr_help question_arrow whats_this arrow forbidden circle crossed_circle 9d800788f1b08800ae810202380a0822 e29285e634086352946a0e7090d73106 hand1 hand2 pointing_hand 00000000000000020006000e7e9ffc3f 08e8e1c95fe2fc01f976f1e063a24ccd 3ecb610c1bf2410f44200f48c40d3599 half-busy left_ptr_watch split_v ne-resize sw-resize nw-resize se-resize e-resize h_double_arrow sb_h_double_arrow w-resize 00008160000006810000408080010102 n-resize sb_v_double_arrow s-resize v_double_arrow ibeam xterm watch
 
-### SOURCE: ###
-
 CONFIGS := $(wildcard src/*.in)
 
-THEMES := $(wildcard src/retrosmart-xcursor-*)
-BASES := $(wildcard src/base-*)
+SRCTHEMES := $(wildcard src/retrosmart-xcursor-*)
+SRCBASES := $(wildcard src/base-*)
 
-DIRS := $(notdir $(basename $(THEMES)))
-CURSORDIRS := $(DIRS:=/cursors)
-INDICES := $(DIRS:=/index.theme)
-CURSORS := $(foreach dir,$(DIRS),$(addprefix $(dir)/cursors/,$(CURSORSNAMES)))
-LINKS := $(foreach dir,$(DIRS),$(addprefix $(dir)/cursors/,$(LINKSNAMES)))
+THEMES := $(notdir $(basename $(SRCTHEMES)))
+CURSORDIRS := $(THEMES:=/cursors)
+INDICES := $(THEMES:=/index.theme)
+CURSORS := $(foreach dir,$(THEMES),$(addprefix $(dir)/cursors/,$(CURSORSNAMES)))
+LINKS := $(foreach dir,$(THEMES),$(addprefix $(dir)/cursors/,$(LINKSNAMES)))
 XPMS := $(wildcard src/*/*.xpm)
 PNGS := $(subst src/,png/,$(XPMS:.xpm=.png))
 BUILDDIRS := $(sort $(CURSORDIRS))
 PNGDIRS := $(sort $(dir $(PNGS)))
 
-
-shadowthemes: $(THEMES:=-shadow) $(BASES:=-shadow)
-	make -j1 build
+default: shadowthemes
 
 build: dirs indices pngs copypngs cursors linkcursors
 
+shadowthemes: $(SRCTHEMES:=-shadow) $(SRCBASES:=-shadow)
+	make -j1 build
 src/%-shadow: src/%
 	cd src; cp -a $(notdir $^) $(notdir $@)
 	test -f $@/shadow.theme && mv $@/shadow.theme $@/index.theme || true
@@ -214,19 +212,19 @@ github: preview.gif clean
 opendesktop: retrosmart-x11-cursors.tar.xz
 
 retrosmart-x11-cursors.tar.xz: default
-	tar cJf $@ $(DIRS)
+	tar cJf $@ $(THEMES)
 
 clean_opendesktop:
 	rm -f retrosmart-x11-cursors.tar.xz
 
 clean_pngs:
-	rm -rf png
+	rm -rf png *.png
 
 clean_cursors:
 	rm -f $(CURSORS)
 
 clean_dirs:
-	rm -rf $(DIRS)
+	rm -rf $(THEMES)
 
 clean_arch:
 	rm -f xcursor-retrosmart-*.pkg.tar.xz
@@ -235,7 +233,7 @@ clean_preview:
 	rm -f preview-*.png
 
 clean_shadow:
-	rm -rf src/*-shadow
+	rm -rf src/*-shadow/
 
 clean_build: clean_pngs clean_dirs clean_shadow
 
@@ -246,29 +244,25 @@ purge: clean
 
 install:
 	install -d -m 755 $(DESTDIR)/$(PREFIX)/share/icons
-	chmod -R u+rwX,go+rX $(DIRS)
-	cp -r $(DIRS) $(DESTDIR)/$(PREFIX)/share/icons/
+	chmod -R u+rwX,go+rX $(THEMES)
+	cp -r $(THEMES) $(DESTDIR)/$(PREFIX)/share/icons/
 
 uninstall:
-	echo rm -rf $(addprefix $(DESTDIR)/$(PREFIX)/share/icons/,$(DIRS))
+	echo rm -rf $(addprefix $(DESTDIR)/$(PREFIX)/share/icons/,$(THEMES))
 
 user_install:
 	mkdir -p ~/.icons/
-	cp -r $(DIRS) ~/.icons/
+	cp -r $(THEMES) ~/.icons/
 
 user_uninstall:
-	rm -rf $(addprefix ~/.icons/,$(DIRS))
+	rm -rf $(addprefix ~/.icons/,$(THEMES))
 
 arch_pkg:
 	makepkg -d
 
 preview-%.png: src/%
 	montage -geometry +8+8 $(shell \
-	find $^/24/ -type f -name "*.xpm" | grep -v '[2-8].xpm' | sort) $@
+	find src -type f -name "*.xpm" | grep -v '[2-9].xpm' | sort -u) $@
 
 preview.gif: $(addsuffix .png,$(subst src/,preview-,$(wildcard src/*)))
 	convert -loop 0 -delay 400 $^ $@
-
-.PHONY: default dirs package pngs cursors github \
-clean_pngs clean_cursors clean_themes clean_arch clean_preview \
-install uninstall user_install user_uninstall arch_pkg opendesktop clean_opendesktop
