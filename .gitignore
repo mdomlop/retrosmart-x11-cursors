@@ -4,4 +4,3 @@ wop/
 !.gitignore
 retrosmart-*
 xcursor-*
-*/*/*/*.png
