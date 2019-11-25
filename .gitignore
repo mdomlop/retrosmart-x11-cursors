@@ -2,5 +2,3 @@ old/
 ./wop/
 .*
 !.gitignore
-./retrosmart-*
-./xcursor-*
