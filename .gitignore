@@ -1,6 +1,8 @@
-/old
-/wop
 .*
 !/.gitignore
+/old/
+/wop/
+/png/
+/src/*-shadow/
 /retrosmart-*
-/xcursor-*
+*.tar.xz
