@@ -1,4 +1,4 @@
-./old/
+old/
 ./wop/
 .*
 !.gitignore
