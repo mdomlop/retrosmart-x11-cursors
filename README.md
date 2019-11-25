@@ -7,6 +7,8 @@ Retrosmart is a X11 cursor theme created for personal use. Inspired by old
 Windows 3.x and OS X cursors, Retrosmart brings an old school feel to your
 wobbly-windowed desktop of today.
 
+It is available in white or black version, with or without alpha shading.
+
 Installation
 ------------
 
