@@ -1,10 +1,9 @@
 /* XPM */
-static char * bottom_left_corner_xpm[] = {
+static char * 24_bottom_left_corner_xpm[] = {
 "24 24 3 1",
 " 	c None",
-".	c black",
-"+	c white",
-"                        ",
+".	c #000000",
+"+	c #FFFFFF",
 "                ....... ",
 "                .+++++. ",
 "                ..++++. ",
@@ -27,4 +26,5 @@ static char * bottom_left_corner_xpm[] = {
 ".++.............        ",
 ".++++++++++++++.        ",
 ".++++++++++++++.        ",
-"................        "};
+"................        ",
+"                        "};

@@ -1,16 +1,10 @@
 /* XPM */
-static char * color_picker_xpm[] = {
+static char * 24_color_picker_xpm[] = {
 "24 24 4 1",
 " 	c None",
-".	c white",
-"+	c black",
-"@	c green",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
+".	c #FFFFFF",
+"+	c #000000",
+"@	c #00FF00",
 "           ....         ",
 "          .++++.        ",
 "         .++++++.       ",
@@ -28,4 +22,10 @@ static char * color_picker_xpm[] = {
 ".+.@@+.                 ",
 ".+@@+.                  ",
 "+ ++.                   ",
-".+..                    "};
+".+..                    ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        "};

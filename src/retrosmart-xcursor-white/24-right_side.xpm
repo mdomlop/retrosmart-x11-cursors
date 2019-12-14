@@ -1,13 +1,9 @@
 /* XPM */
-static char * right_side_xpm[] = {
+static char * 24_right_side_xpm[] = {
 "24 24 3 1",
 " 	c None",
-".	c black",
-"+	c white",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
+".	c #000000",
+"+	c #FFFFFF",
 "                    ....",
 "                    .++.",
 "                    .++.",
@@ -24,6 +20,10 @@ static char * right_side_xpm[] = {
 "                    .++.",
 "                    .++.",
 "                    ....",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
 "                        ",
 "                        ",
 "                        ",

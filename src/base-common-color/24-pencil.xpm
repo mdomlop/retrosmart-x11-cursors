@@ -1,16 +1,12 @@
 /* XPM */
-static char * pencil_xpm[] = {
+static char * 24_pencil_xpm[] = {
 "24 24 6 1",
 " 	c None",
-".	c white",
-"+	c black",
-"@	c red",
-"#	c yellow",
-"$	c green",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
+".	c #FFFFFF",
+"+	c #000000",
+"@	c #FF0000",
+"#	c #FFFF00",
+"$	c #00FF00",
 "               ...      ",
 "              .+++.     ",
 "             .+@@++.    ",
@@ -30,4 +26,8 @@ static char * pencil_xpm[] = {
 ".++$$++.                ",
 ".+$+++.                 ",
 ".+++..                  ",
-"....                    "};
+"....                    ",
+"                        ",
+"                        ",
+"                        ",
+"                        "};
