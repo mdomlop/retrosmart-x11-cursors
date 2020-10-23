@@ -7,7 +7,7 @@ _pkgver_month=12
 _pkgver_day=14
 
 pkgname=xcursor-retrosmart
-pkgver=2.2
+pkgver=2.3
 pkgrel=1
 pkgdesc='A retrosmart look collection of cursors for X.'
 url=https://github.com/mdomlop/retrosmart-x11-cursors
