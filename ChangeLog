@@ -1,6 +1,7 @@
 2020.10.23, Version 2.2:
 	- Fixed hourglass movement.
-	- Bigger arrow handlers.
+	- Larger arrow handlers for 42 size.
+	- Fixed wrong color in 42-progress4.xpm black cursor.
 
 2019.12.14, Version 2.1:
 	- Version 2.1
