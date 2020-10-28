@@ -13,7 +13,7 @@ pkgdesc='A retrosmart look collection of cursors for X.'
 url=https://github.com/mdomlop/retrosmart-x11-cursors
 source=()
 license=('GPL3')
-builddepends=('imagemagick' 'xorg-xcursorgen')
+makedepends=('imagemagick' 'xorg-xcursorgen')
 optdepends=('retrosmart-aurorae-themes: The corresponding Aurorae themes'
             'retrosmart-kvantum-theme: The corresponding theme for Kvantum'
             'retrosmart-qtcurve-theme: The corresponding theme for QtCurve'
