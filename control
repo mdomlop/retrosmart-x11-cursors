@@ -1,0 +1,10 @@
+Package: retrosmart-xcursors
+Version: 2.3.1
+Architecture: all
+Depends:
+Description: A retrosmart look collection of cursors for X.
+#Section: main
+Priority: optional
+Maintainer: Manuel Domínguez López <@mail@>
+Homepage: https://github.com/mdomlop/retrosmart-x11-cursors
+Installed-Size: 6864

@@ -6,3 +6,5 @@
 /src/*-shadow/
 /retrosmart-*
 *.tar.xz
+*.pkg.tar.zst
+*.deb

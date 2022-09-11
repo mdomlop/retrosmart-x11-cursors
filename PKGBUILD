@@ -6,11 +6,11 @@ _pkgver_year=2019
 _pkgver_month=12
 _pkgver_day=14
 
-pkgname=xcursor-retrosmart
+pkgname=retrosmart-xcursors
 pkgver=2.3.1
 pkgrel=1
 pkgdesc='A retrosmart look collection of cursors for X.'
-url=https://github.com/mdomlop/retrosmart-x11-cursors
+url='https://github.com/mdomlop/retrosmart-x11-cursors'
 source=()
 license=('GPL3')
 makedepends=('imagemagick' 'xorg-xcursorgen')

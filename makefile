@@ -1,6 +1,12 @@
 PREFIX = '/usr'
 DESTDIR = ''
-NAME := retrosmart-xcursors
+PKGNAME := retrosmart-xcursors
+
+VERSION = 2.3.1
+URL = https://github.com/mdomlop/retrosmart-x11-cursors
+DESCRIPTION = A retrosmart look collection of cursors for X.
+LICENSE = GPL3
+MAIL=zqbzybc@tznvy.pbz
 
 CURSORSNAMES := alias all-scroll bottom_left_corner bottom_right_corner bottom_side cell center_ptr closedhand color-picker col-resize context-menu copy crosshair default dnd-move dnd-no-drop down-arrow draft fleur help left-arrow left_side no-drop not-allowed openhand pencil pirate pointer progress right-arrow right_ptr right_side row-resize size_bdiag size_fdiag size_hor size_ver text top_left_corner top_right_corner top_side up-arrow vertical-text wait wayland-cursor x-cursor zoom-in zoom-out
 
@@ -20,6 +26,13 @@ XPMS := $(wildcard src/*/*.xpm)
 PNGS := $(subst src/,png/,$(XPMS:.xpm=.png))
 BUILDDIRS := $(sort $(CURSORDIRS))
 PNGDIRS := $(sort $(dir $(PNGS)))
+
+
+PKGEXT=.pkg.tar.zst
+ARCHPKG = $(PKGNAME)-$(VERSION)-1-$(shell uname -m)$(PKGEXT)
+
+DEBIANDIR = $(PKGNAME)-$(VERSION)_all
+DEBIANPKG = $(DEBIANDIR).deb
 
 default: shadowthemes
 
@@ -227,7 +240,7 @@ clean_dirs:
 	rm -rf $(THEMES)
 
 clean_arch:
-	rm -f xcursor-retrosmart-*.pkg.tar.xz
+	rm -f pkg $(ARCHPKG)
 
 clean_preview:
 	rm -f preview-*.png
@@ -237,7 +250,7 @@ clean_shadow:
 
 clean_build: clean_pngs clean_dirs clean_shadow
 
-clean: clean_build clean_arch clean_preview clean_opendesktop
+clean: clean_build clean_arch clean_debian clean_preview clean_opendesktop
 
 purge: clean
 	rm -f preview.gif
@@ -257,12 +270,46 @@ user_install:
 user_uninstall:
 	rm -rf $(addprefix ~/.icons/,$(THEMES))
 
-arch_pkg:
-	makepkg -d
+arch_pkg: $(ARCHPKG)
+$(ARCHPKG): PKGBUILD makefile LICENSE README.md
+	sed -i "s|pkgname=.*|pkgname=$(PKGNAME)|" PKGBUILD
+	sed -i "s|pkgver=.*|pkgver=$(VERSION)|" PKGBUILD
+	sed -i "s|pkgdesc=.*|pkgdesc='$(DESCRIPTION)'|" PKGBUILD
+	sed -i "s|url=.*|url='$(URL)'|" PKGBUILD
+	sed -i "s|license=.*|license=('$(LICENSE)')|" PKGBUILD
+	makepkg -df PKGDEST=./ BUILDDIR=./ PKGEXT='$(PKGEXT)'
+	@echo
+	@echo Package done!
+	@echo You can install it as root with:
+	@echo pacman -U $@
+
+pkg_debian: $(DEBIANPKG)
+$(DEBIANPKG): $(DEBIANDIR)
+$(DEBIANDIR): default ChangeLog AUTHORS LICENSE README.md
+	install -d -m 755 DEBIANTEMP/$(PREFIX)/share/icons
+	chmod -R u+rwX,go+rX $(THEMES)
+	cp -r $(THEMES) DEBIANTEMP/$(PREFIX)/share/icons/
+	install -Dm644 LICENSE DEBIANTEMP/$(PREFIX)/share/licenses/$(PKGNAME)/LICENSE
+	install -Dm644 AUTHORS DEBIANTEMP/$(PREFIX)/share/doc/$(PKGNAME)/AUTHORS
+	install -Dm644 ChangeLog DEBIANTEMP/$(PREFIX)/share/doc/$(PKGNAME)/ChangeLog
+	install -Dm644 README.md DEBIANTEMP/$(PREFIX)/share/doc/$(PKGNAME)/README
+	sed -i "s/Installed-Size:.*/Installed-Size:\ $$(du -ks DEBIANTEMP | cut -f1)/" control
+	mv DEBIANTEMP $@
+	mkdir -p -m 0775 $@/DEBIAN
+	@sed s/@mail@/$(MAIL)/g control > $@/DEBIAN/control
+	cp ChangeLog $@/DEBIAN
+	cp README.md $@/DEBIAN/README
+	dpkg-deb --build --root-owner-group $@
+
+clean_debian:
+	rm -rf DEBIAN $(DEBIANDIR) $(DEBIANPKG).deb
 
 preview-%.png: src/%
 	montage -geometry +8+8 $(shell \
 	find src -type f -name "*.xpm" | grep -v '[2-9].xpm' | sort -u) $@
 
-preview.gif: $(addsuffix .png,$(subst src/,preview-,$(wildcard src/*)))
-	convert -loop 0 -delay 400 $^ $@
+#preview.gif: $(addsuffix .png,$(subst src/,preview-,$(wildcard src/*)))
+#	convert -loop 0 -delay 400 $^ $@
+
+preview.gif:
+	montage -geometry +8+8 src/retrosmart-xcursor-white/32-default.xpm src/retrosmart-xcursor-white/32-progress1.xpm  src/retrosmart-xcursor-white/32-help.xpm src/base-common/32-wait01.xpm src/base-common/32-text.xpm src/base-common/32-pirate.xpm src/base-common/32-pointer.xpm src/base-common/32-copy.xpm preview.gif
