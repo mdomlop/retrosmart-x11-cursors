@@ -3,8 +3,11 @@
 /old/
 /wop/
 /png/
-/src/*-shadow/
+xpm
+/pkg/
 /retrosmart-*
+/xcursor-retrosmart-*
 *.tar.xz
 *.pkg.tar.zst
 *.deb
+*~
