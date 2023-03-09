@@ -31,7 +31,7 @@ cursor: $(CURSORS)
 index: $(INDICES)
 link: $(LINKS)
 
-clean: clean_xpm clean_png clean_themes clean_pkg clean_arch
+clean: clean_xpm clean_png clean_themes clean_pkg clean_arch clean_debian
 
 clean_xpm:
 	rm -rf xpm
@@ -46,3 +46,4 @@ clean_pkg:
 include install.mk
 include arch.mk
 include debian.mk
+include ocs.mk
