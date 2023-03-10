@@ -31,7 +31,7 @@ cursor: $(CURSORS)
 index: $(INDICES)
 link: $(LINKS)
 
-clean: clean_xpm clean_png clean_themes clean_pkg clean_arch clean_debian
+clean: clean_xpm clean_png clean_themes clean_pkg clean_arch clean_debian clean_ocs
 
 clean_xpm:
 	rm -rf xpm
