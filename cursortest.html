@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Cursor test</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAQAAADZc7J/AAAAIGNIUk0AAHomAACAhAAA+gAAAIDo
+AAB1MAAA6mAAADqYAAAXcJy6UTwAAAACYktHRAD/h4/MvwAAAAd0SU1FB+cDCBIuN+mZCJgAAABp
+SURBVEjH7ZSxDsAgCEQfl/7/L9uBGLVdCkxNuEXO5B7gIAxKEtQQglFCCGoI+ZFHaBZZhFaZQ2g3
+GYROG0foeRFFXLuxRbEgwGbbz8FjBQOz1AuAPB6NnRN4PDmDKt3fGtXfodVq/Vg3QrkaFqMDpisA
+AAAldEVYdGRhdGU6Y3JlYXRlADIwMjMtMDMtMDhUMTg6NDY6NTIrMDA6MDBAFfzHAAAAJXRFWHRk
+YXRlOm1vZGlmeQAyMDIzLTAzLTA4VDE4OjQ2OjUyKzAwOjAwMUhEewAAACh0RVh0ZGF0ZTp0aW1l
+c3RhbXAAMjAyMy0wMy0wOFQxODo0Njo1NSswMDowMKP6WyoAAAAASUVORK5CYII=" />
+</head>
+
+<style>
+DIV
+{
+  background-color: white;
+  float: left;
+  margin: .4em;
+  width: 150px;
+  height: 150px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+}
+
+H2 { text-align: center; }
+#auto { cursor: auto; }
+#default { cursor: default; }
+#text { cursor: text; }
+#pointer { cursor: pointer; }
+#help { cursor: help; }
+#wait { cursor: wait; }
+#progress { cursor: progress; }
+#crosshair { cursor: crosshair; }
+#move { cursor: move; }
+#e-resize { cursor: e-resize; }
+#ne-resize { cursor: ne-resize; }
+#nw-resize { cursor: nw-resize; }
+#n-resize { cursor: n-resize; }
+#se-resize { cursor: se-resize; }
+#sw-resize { cursor: sw-resize; }
+#s-resize { cursor: s-resize; }
+#w-resize { cursor: w-resize; }
+
+#none { cursor: none; }
+#vertical-text { cursor: vertical-text; }
+#context-menu { cursor: context-menu; }
+#cell { cursor: cell; }
+#alias { cursor: alias; }
+#copy { cursor: copy; }
+#no-drop { cursor: no-drop; }
+#not-allowed { cursor: not-allowed; }
+#col-resize { cursor: col-resize; }
+#row-resize { cursor: row-resize; }
+#all-scroll { cursor: all-scroll; }
+#nesw-resize { cursor: nesw-resize; }
+#nwse-resize { cursor: nwse-resize; }
+#ns-resize { cursor: ns-resize; }
+#ew-resize { cursor: ew-resize; }
+#zoom-in { cursor: -moz-zoom-in; cursor: -webkit-zoom-in; cursor: zoom-in; }
+#zoom-out { cursor: -moz-zoom-out; cursor: -webkit-zoom-out; cursor: zoom-out; }
+#grab { cursor: -moz-grab; cursor: -webkit-grab; cursor: grab; }
+#grabbing { cursor: -moz-grabbing; cursor: -webkit-grabbing; cursor: grabbing; }
+
+<!--
+#hand { cursor: hand; }
+#spinning { cursor: spinning; }
+#count-up { cursor: count-up; }
+#count-down { cursor: count-down; }
+#count-up-down { cursor: count-up-down; }
+#url
+{
+  cursor: auto; // Fallback should be specified separately for IE.
+  cursor: url(http://www.hscripts.com/images/next.gif) 2 2, auto; // See: https://developer.mozilla.org/en-US/docs/Web/CSS/cursor/url for more info
+}
+-->
+</style>
+
+<body>
+
+<h1>Test your cursors.</h1>
+
+<!--<h2>CSS2</h2>-->
+
+<div id="auto"><h2>auto</h2></div>
+<div id="default"><h2>default</h2></div>
+<div id="text"><h2>text</h2></div>
+<div id="pointer"><h2>pointer</h2></div>
+<div id="help"><h2>help</h2></div>
+<div id="wait"><h2>wait</h2></div>
+<div id="progress"><h2>progress</h2></div>
+<div id="crosshair"><h2>crosshair</h2></div>
+<div id="move"><h2>move</h2></div>
+<div id="e-resize"><h2>e-resize</h2></div>
+<div id="ne-resize"><h2>ne-resize</h2></div>
+<div id="nw-resize"><h2>nw-resize</h2></div>
+<div id="n-resize"><h2>n-resize</h2></div>
+<div id="se-resize"><h2>se-resize</h2></div>
+<div id="sw-resize"><h2>sw-resize</h2></div>
+<div id="s-resize"><h2>s-resize</h2></div>
+<div id="w-resize"><h2>w-resize</h2></div>
+
+
+<!--<h2>CSS3</h2>-->
+
+<div id="none"><h2>none</h2></div>
+<div id="vertical-text"><h2>vertical-text</h2></div>
+<div id="context-menu"><h2>context-menu</h2></div>
+<div id="cell"><h2>cell</h2></div>
+<div id="alias"><h2>alias</h2></div>
+<div id="copy"><h2>copy</h2></div>
+<div id="no-drop"><h2>no-drop</h2></div>
+<div id="not-allowed"><h2>not-allowed</h2></div>
+<div id="col-resize"><h2>col-resize</h2></div>
+<div id="row-resize"><h2>row-resize</h2></div>
+<div id="all-scroll"><h2>all-scroll</h2></div>
+<div id="nesw-resize"><h2>nesw-resize</h2></div>
+<div id="nwse-resize"><h2>nwse-resize</h2></div>
+<div id="ns-resize"><h2>ns-resize</h2></div>
+<div id="ew-resize"><h2>ew-resize</h2></div>
+<div id="zoom-in"><h2>zoom-in</h2></div>
+<div id="zoom-out"><h2>zoom-out</h2></div>
+<div id="grab"><h2>grab</h2></div>
+<div id="grabbing"><h2>grabbing</h2></div>
+
+
+<!--
+<h2>Obsolete</h2>
+
+<div id="hand"><h2>hand</h2></div>
+<div id="url"><h2>url</h2></div>
+<div id="spinning"><h2>spinning</h2></div>
+<div id="count-up"><h2>count-up</h2></div>
+<div id="count-down"><h2>count-down</h2></div>
+<div id="count-up-down"><h2>count-up-down</h2></div>
+-->
+
+
+
+
+
+
+<!-- auto | none | default | no-drop | pointer | crosshair | move | wait | help | text | vertical-text | url
+
+progress | not-allowed |
+
+ew-resize | ns-resize | nesw-resize | nwse-resize | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize
+
+col-resize | row-resize | all-scroll | zoom-in | zoom-out
+
+NEW: copy | alias | context-menu | cell | grab | grabbing | spinning | count-up | count-down | count-up-down http://www.w3.org/TR/2000/WD-css3-userint-20000216#cursor
+
+NEW: https://www.w3.org/TR/css-ui-3/#valdef-cursor-copy
+-->
+
+</body>
+</html>
