@@ -1,6 +1,6 @@
 PKGNAME := xcursor-retrosmart
 
-VERSION = 3.0a
+VERSION = 3.0
 URL = https://github.com/mdomlop/retrosmart-x11-cursors
 DESCRIPTION = A retrosmart look collection of cursors for X.
 LICENSE = GPL3
