@@ -14,22 +14,17 @@ Installation
 
 For a system-wide installation run:
 
-    $ make -j1
+    $ make
     # make install
-
-For a user-only installation run:
-
-    $ make -j1
-    # make user_install
 
 Alternatively you can build and install a Arch Linux package:
 
-    $ makepkg -d
+    $ make pkg_arch
     # pacman -U xcursor-retrosmart-*.pkg.tar.gz
 
 or install it from AUR:
 
-    $ trizen -S xcursor-retrosmart
+    $ yay -S xcursor-retrosmart
 
 Uninstallation
 --------------
@@ -37,10 +32,6 @@ Uninstallation
 For uninstall run:
 
     # make uninstall
-
-or:
-
-    $ make user_uninstall
 
 or:
 
