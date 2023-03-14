@@ -49,26 +49,26 @@ png/retrosmart-xcursor-white/%.png: xpm/retrosmart-xcursor-white/%.xpm
 	convert $^ $@
 png/retrosmart-xcursor-white-shadow/%.png: xpm/retrosmart-xcursor-white-shadow/%.xpm
 	mkdir -p $(dir $@)
-	montage $^ -background none -shadow -geometry -0-0 -background none $@
+	montage $^ -background none -shadow -geometry '-0-0' -extent 120%%x120%% -background none $@
 png/retrosmart-xcursor-white-color/%.png: xpm/retrosmart-xcursor-white-color/%.xpm
 	mkdir -p $(dir $@)
 	convert $^ $@
 png/retrosmart-xcursor-white-color-shadow/%.png: xpm/retrosmart-xcursor-white-color-shadow/%.xpm
 	mkdir -p $(dir $@)
-	montage $^ -background none -shadow -geometry -0-0 -background none $@
+	montage $^ -background none -shadow -geometry '-0-0' -extent 120%%x120%% -background none $@
 
 png/retrosmart-xcursor-black/%.png: xpm/retrosmart-xcursor-black/%.xpm
 	mkdir -p $(dir $@)
 	convert $^ $@
 png/retrosmart-xcursor-black-shadow/%.png: xpm/retrosmart-xcursor-black-shadow/%.xpm
 	mkdir -p $(dir $@)
-	montage $^ -background none -shadow -geometry -0-0 -background none $@
+	montage $^ -background none -shadow -geometry '-0-0' -extent 120%%x120%% -background none $@
 png/retrosmart-xcursor-black-color/%.png: xpm/retrosmart-xcursor-black-color/%.xpm
 	mkdir -p $(dir $@)
 	convert $^ $@
 png/retrosmart-xcursor-black-color-shadow/%.png: xpm/retrosmart-xcursor-black-color-shadow/%.xpm
 	mkdir -p $(dir $@)
-	montage $^ -background none -shadow -geometry -0-0 -background none $@
+	montage $^ -background none -shadow -geometry '-0-0' -extent 120%%x120%% -background none $@
 
 
 retrosmart-xcursor-white/cursors/%: src/%.in
