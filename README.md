@@ -44,5 +44,5 @@ For a successful compilation you need *imagemagick* for generate PNGs from XPMs
 and *xcursorgen* for generate the cursors from the PNGs.
 
 
-### You can test your cursors here: [Cursor tester](https://github.com/mdomlop/retrosmart-x11-cursors/blob/master/cursortest.html)
+### You can test your cursors here: [Cursor tester](https://htmlpreview.github.io/?https://github.com/mdomlop/retrosmart-x11-cursors/blob/master/cursortest.html)
 
