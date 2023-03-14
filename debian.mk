@@ -3,7 +3,8 @@ DARCHI = all
 DEBIANDIR = $(PKGNAME)-$(VERSION)_$(DARCHI)
 DEBIANPKG = $(DEBIANDIR).deb
 
-DEBIANDEPS = libbtrfsutil1
+DEBIANDEPS =
+DEBIANMKDEPS = x11-apps, imagemagick
 
 $(DEBIANDIR)/DEBIAN:
 	mkdir -p -m 0775 $@
@@ -26,6 +27,7 @@ $(DEBIANDIR)/DEBIAN/control: $(DEBIANDIR)/DEBIAN
 	echo 'Version: $(VERSION)' >> $@
 	echo 'Architecture: $(DARCHI)' >> $@
 	echo 'Depends: $(DEBIANDEPS)' >> $@
+	echo 'Build-Depends: $(DEBIANMKDEPS)' >> $@
 	echo 'Description: $(DESCRIPTION)' >> $@
 	echo 'Section: main' >> $@
 	echo 'Priority: optional' >> $@

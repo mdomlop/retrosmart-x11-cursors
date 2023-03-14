@@ -4,7 +4,7 @@ ARCHI = "any"
 
 PKGEXT=.pkg.tar.zst
 ARCHPKG = $(PKGNAME)-$(VERSION)-1-$(ARCHI)$(PKGEXT)
-ARCHMKDEP = "btrfs-progs"
+ARCHMKDEP = "imagemagick" "xorg-xcursorgen"
 ARCHBK = ""
 
 PKGBUILD:
