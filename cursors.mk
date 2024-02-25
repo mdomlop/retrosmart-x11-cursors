@@ -2,8 +2,9 @@ CURSORSNAMES := alias all-scroll bottom_left_corner bottom_right_corner bottom_s
 
 LINKSNAMES := 3085a0e285430894940527032f8b26df 640fb0e74195791501fd1ed57b41487f a2a266d0498c3104214a47bd64ab0fc8 link plus 03b6e0fcb3499374a867c041f52298f0 move split_h 1081e37283d90000800003c07f3ef6bf 6407b0e94181790501fd1e167b474872 b66166c04f8c3109214a4fbd64a50fc8 dnd-copy cross left_ptr size-bdiag size-fdiag size-hor size-ver top_left_arrow 4498f0e0c1937ffe01fd06f973665830 9081237383d90e509aa00f00170e968f dnd-none fcf21c00b30f7e3f83fe0dfd12e71cff size_all 5c6cd98b3f3ebcb1f9c7f1c204630408 d9ce0ab605698f320427677b458ad60b left_ptr_help question_arrow whats_this arrow forbidden circle crossed_circle 9d800788f1b08800ae810202380a0822 e29285e634086352946a0e7090d73106 hand1 hand2 pointing_hand 00000000000000020006000e7e9ffc3f 08e8e1c95fe2fc01f976f1e063a24ccd 3ecb610c1bf2410f44200f48c40d3599 half-busy left_ptr_watch split_v ne-resize sw-resize nw-resize se-resize e-resize h_double_arrow sb_h_double_arrow w-resize 00008160000006810000408080010102 n-resize sb_v_double_arrow s-resize v_double_arrow ibeam xterm watch
 
-
-
+# Deja un pixel
+#SHADOWARG := \( +clone -background black -shadow 80x3+5+5 \) +swap -background none -layers merge +repage
+SHADOWARG := \( +clone -background black -shadow 60x2+5+5 \) +swap -background none -layers merge +repage
 
 xpm/retrosmart-xcursor-white/%.xpm: src/base/%.xpm
 	mkdir -p $(dir $@)
@@ -49,26 +50,26 @@ png/retrosmart-xcursor-white/%.png: xpm/retrosmart-xcursor-white/%.xpm
 	convert $^ $@
 png/retrosmart-xcursor-white-shadow/%.png: xpm/retrosmart-xcursor-white-shadow/%.xpm
 	mkdir -p $(dir $@)
-	montage $^ -background none -shadow -geometry '-0-0' -extent 120%%x120%% -background none $@
+	convert $^ $(SHADOWARG) $@
 png/retrosmart-xcursor-white-color/%.png: xpm/retrosmart-xcursor-white-color/%.xpm
 	mkdir -p $(dir $@)
 	convert $^ $@
 png/retrosmart-xcursor-white-color-shadow/%.png: xpm/retrosmart-xcursor-white-color-shadow/%.xpm
 	mkdir -p $(dir $@)
-	montage $^ -background none -shadow -geometry '-0-0' -extent 120%%x120%% -background none $@
+	convert $^ $(SHADOWARG) $@
 
 png/retrosmart-xcursor-black/%.png: xpm/retrosmart-xcursor-black/%.xpm
 	mkdir -p $(dir $@)
 	convert $^ $@
 png/retrosmart-xcursor-black-shadow/%.png: xpm/retrosmart-xcursor-black-shadow/%.xpm
 	mkdir -p $(dir $@)
-	montage $^ -background none -shadow -geometry '-0-0' -extent 120%%x120%% -background none $@
+	convert $^ $(SHADOWARG) $@
 png/retrosmart-xcursor-black-color/%.png: xpm/retrosmart-xcursor-black-color/%.xpm
 	mkdir -p $(dir $@)
 	convert $^ $@
 png/retrosmart-xcursor-black-color-shadow/%.png: xpm/retrosmart-xcursor-black-color-shadow/%.xpm
 	mkdir -p $(dir $@)
-	montage $^ -background none -shadow -geometry '-0-0' -extent 120%%x120%% -background none $@
+	convert $^ $(SHADOWARG) $@
 
 
 retrosmart-xcursor-white/cursors/%: src/%.in
