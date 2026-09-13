@@ -1,70 +1,100 @@
-PKGNAME := xcursor-retrosmart
+NAME := retrosmart
+PKGNAME := xcursor-$(NAME)
 
-VERSION = 3.1a
+VERSION = 4.0a
 URL = https://github.com/mdomlop/retrosmart-x11-cursors
 DESCRIPTION = A retrosmart look collection of cursors for X.
 LICENSE = GPL3
 MAIL=zqbzybc@tznvy.pbz
-YEAR = 2023
+YEAR = 2026
 
-include cursors.mk
+include cursorlinks.mk
+include xpm.mk
+include xpm2png.mk
+include svg.mk
+include svg2png.mk
+include png2cursor.mk
 
-SRCTHEMES := $(wildcard src/*.theme)
-SRCXPMS := $(wildcard src/base/*.xpm)
+XPM2PNGCOM := magick
+XPM2PNGARG := -density 1200 -background none -resize 32x32
+XPM2PNGARGSHADOW := \( +clone -background black -shadow 60x2+5+5 \) +swap -background none -layers merge +repage
 
-THEMES := $(notdir $(basename $(SRCTHEMES)))
+#SVG2PNGCOM := inkscape
+#SVG2PNGARG := --export-background-opacity=0 --export-area-page --export-type=png --export-filename=
+#SVG2PNGARGSHADOW := --batch-process --actions="select-all;org.inkscape.effect.filter.ColorDropShadow.noprefs;export-type:png;export-filename:$@;export-width:48;export-height:48;export-background-opacity:0;export-do"
 
-INDICES := $(THEMES:=/index.theme)
+SVG2PNGCOM := $(XPM2PNGCOM)
+SVG2PNGARG := $(XPM2PNGARG)
+SVG2PNGARGSHADOW := $(XPM2PNGARGSHADOW)
 
-XPMS := $(foreach dir,$(THEMES),$(addprefix xpm/$(dir)/,$(notdir $(SRCXPMS))))
-PNGS := $(foreach dir,$(THEMES),$(addprefix png/$(dir)/,$(notdir $(SRCXPMS))))
-PNGS := $(PNGS:.xpm=.png)
 
-CURSORS := $(foreach dir,$(THEMES),$(addprefix $(dir)/cursors/,$(CURSORSNAMES)))
-LINKS := $(foreach dir,$(THEMES),$(addprefix $(dir)/cursors/,$(LINKSNAMES)))
+# Configuración de tamaños
+#SIZES := 32 36 48 60
+SIZES := 32 36
 
-all: xpm png cursor index link
+SRCXPMTHEMES := $(wildcard src/$(NAME)-xcursor-*.theme)
+SRCSVGTHEMES := $(wildcard src/$(NAME)-vector-xcursor-*.theme)
+
+SRCXPMS := $(wildcard src/base.xpm/*.xpm)
+SRCSVGS := $(wildcard src/base.svg/*.svg)
+
+XPMTHEMES := $(notdir $(basename $(SRCXPMTHEMES)))
+SVGTHEMES := $(notdir $(basename $(SRCSVGTHEMES)))
+
+XPMINDICES := $(addprefix xpm_theme/,$(XPMTHEMES:=/index.theme)) $(addprefix xpm_theme/,$(XPMTHEMES:=/cursor.theme))
+SVGINDICES := $(addprefix svg_theme/,$(SVGTHEMES:=/index.theme)) $(addprefix svg_theme/,$(SVGTHEMES:=/cursor.theme))
+INDICES := $(XPMINDICES) $(SVGINDICES)
+
+XPMS := $(foreach dir,$(XPMTHEMES),$(addprefix xpm/$(dir)/,$(notdir $(SRCXPMS))))
+SVGS := $(foreach dir,$(SVGTHEMES),$(addprefix svg/$(dir)/,$(notdir $(SRCSVGS))))
+
+XPMPNGS := $(foreach dir,$(XPMTHEMES),$(addprefix xpmpng/$(dir)/,$(notdir $(SRCXPMS))))
+XPMPNGS := $(XPMPNGS:.xpm=.png)
+
+SVGPNGS := $(foreach size,$(SIZES),$(addprefix $(size)-,$(notdir $(SRCSVGS))))
+SVGPNGS := $(foreach dir,$(SVGTHEMES),$(addprefix svgpng/$(dir)/,$(SVGPNGS)))
+SVGPNGS := $(SVGPNGS:.svg=.png)
+PNGS := $(XPMPNGS) $(SVGPNGS)
+
+XPMCURSORS := $(foreach dir,$(XPMTHEMES),$(addprefix xpm_theme/$(dir)/cursors/,$(CURSORSNAMES)))
+SVGCURSORS := $(foreach dir,$(SVGTHEMES),$(addprefix svg_theme/$(dir)/cursors/,$(CURSORSNAMES)))
+CURSORS := $(XPMCURSORS) $(SVGCURSORS)
+
+XPMLINKS := $(foreach dir,$(XPMTHEMES),$(addprefix xpm_theme/$(dir)/cursors/,$(LINKSNAMES)))
+SVGLINKS := $(foreach dir,$(SVGTHEMES),$(addprefix svg_theme/$(dir)/cursors/,$(LINKSNAMES)))
+LINKS := $(XPMLINKS) $(SVGLINKS)
+
+all: xpmtheme svgtheme pkg_ocs
+
+xpmtheme: xpm xpmpng xpmcursor xpmindex xpmlink
+svgtheme: svg svgpng svgcursor svgindex svglink
 
 xpm: $(XPMS)
+svg: $(SVGS)
+xpmpng: $(XPMPNGS)
+svgpng: $(SVGPNGS)
+xpmcursor: $(XPMCURSORS)
+svgcursor: $(SVGCURSORS)
+xpmindex: $(XPMINDICES)
+svgindex: $(SVGINDICES)
+xpmlink: $(XPMLINKS)
+svglink: $(SVGLINKS)
+
 png: $(PNGS)
 cursor: $(CURSORS)
 index: $(INDICES)
 link: $(LINKS)
 
-clean: clean_xpm clean_png clean_themes clean_pkg clean_arch clean_debian clean_ocs
+clean: clean_xpm clean_svg clean_png clean_themes clean_ocs
 
 clean_xpm:
 	rm -rf xpm
+clean_svg:
+	rm -rf svg
 clean_png:
-	rm -rf png
+	rm -rf xpmpng svgpng
 clean_themes:
-	rm -rf $(THEMES)
-clean_pkg:
-	rm -f *.zst
-	rm -f *.deb
-
-purge: clean
-	rm -f preview.gif
-
-#preview.gif: $(addsuffix .png,$(subst src/,preview-,$(wildcard src/*)))
-#	convert -loop 0 -delay 400 $^ $@
-
-#PREVIEW := default progress1 help wait01 text pirate pointer copy
-PREVIEW := default alias progress1 context-menu help wait01 text pirate pointer copy color-picker crosshair cell dnd-move dnd-no-drop no-drop not-allowed pencil zoom-in zoom-out
-PREVIEW_W32 := $(addprefix png/retrosmart-xcursor-white/32-,$(PREVIEW))
-PREVIEW_W36 := $(addprefix png/retrosmart-xcursor-white/36-,$(PREVIEW))
-PREVIEW_B32 := $(addprefix png/retrosmart-xcursor-black/32-,$(PREVIEW))
-PREVIEW_B36 := $(addprefix png/retrosmart-xcursor-black/36-,$(PREVIEW))
-PREVIEW_W32CS := $(addprefix png/retrosmart-xcursor-white-color-shadow/32-,$(PREVIEW))
-PREVIEW_W36CS := $(addprefix png/retrosmart-xcursor-white-color-shadow/36-,$(PREVIEW))
-PREVIEW_B32CS := $(addprefix png/retrosmart-xcursor-black-color-shadow/32-,$(PREVIEW))
-PREVIEW_B36CS := $(addprefix png/retrosmart-xcursor-black-color-shadow/36-,$(PREVIEW))
-PREVIEW := $(PREVIEW_W32) $(PREVIEW_W36) $(PREVIEW_B32) $(PREVIEW_B36)  $(PREVIEW_W32CS) $(PREVIEW_W36CS) $(PREVIEW_B32CS) $(PREVIEW_B36CS)
-PREVIEW := $(PREVIEW:=.png)
-
-preview.gif: $(PREVIEW)
-	montage -geometry +9+8 -tile 20x0 $^ preview.gif
-
+	rm -rf xpm_theme svg_theme
 
 include install.mk
 include arch.mk
