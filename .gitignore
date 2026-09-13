@@ -2,11 +2,12 @@
 !/.gitignore
 /old/
 /wop/
-/png/
 xpm
-/pkg/
-/retrosmart-*
-/xcursor-retrosmart-*
+xpmpng/
+xpm_theme/
+svg/
+svgpng/
+svg_theme/
 *.tar.xz
 *.pkg.tar.zst
 *.deb
