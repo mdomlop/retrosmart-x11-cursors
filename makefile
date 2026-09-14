@@ -35,8 +35,8 @@ SIZES := 32 36
 SRCXPMTHEMES := $(wildcard src/$(NAME)-bitmap-xcursor-*.theme)
 SRCSVGTHEMES := $(wildcard src/$(NAME)-vector-xcursor-*.theme)
 
-SRCXPMS := $(wildcard src/base.xpm/*.xpm)
-SRCSVGS := $(wildcard src/base.svg/*.svg)
+SRCXPMS := $(wildcard src/bitmap.base/*.xpm)
+SRCSVGS := $(wildcard src/vector.base/*.svg)
 
 XPMTHEMES := $(notdir $(basename $(SRCXPMTHEMES)))
 SVGTHEMES := $(notdir $(basename $(SRCSVGTHEMES)))
