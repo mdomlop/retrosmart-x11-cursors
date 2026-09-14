@@ -16,7 +16,7 @@ include svg2png.mk
 include png2cursor.mk
 
 XPM2PNGCOM := magick
-XPM2PNGARG := -density 1200 -background none -resize 32x32
+XPM2PNGARG := -density 1200 -background none
 XPM2PNGARGSHADOW := \( +clone -background black -shadow 60x2+5+5 \) +swap -background none -layers merge +repage
 
 #SVG2PNGCOM := inkscape
@@ -32,7 +32,7 @@ SVG2PNGARGSHADOW := $(XPM2PNGARGSHADOW)
 #SIZES := 32 36 48 60
 SIZES := 32 36
 
-SRCXPMTHEMES := $(wildcard src/$(NAME)-xcursor-*.theme)
+SRCXPMTHEMES := $(wildcard src/$(NAME)-bitmap-xcursor-*.theme)
 SRCSVGTHEMES := $(wildcard src/$(NAME)-vector-xcursor-*.theme)
 
 SRCXPMS := $(wildcard src/base.xpm/*.xpm)
@@ -41,8 +41,8 @@ SRCSVGS := $(wildcard src/base.svg/*.svg)
 XPMTHEMES := $(notdir $(basename $(SRCXPMTHEMES)))
 SVGTHEMES := $(notdir $(basename $(SRCSVGTHEMES)))
 
-XPMINDICES := $(addprefix xpm_theme/,$(XPMTHEMES:=/index.theme)) $(addprefix xpm_theme/,$(XPMTHEMES:=/cursor.theme))
-SVGINDICES := $(addprefix svg_theme/,$(SVGTHEMES:=/index.theme)) $(addprefix svg_theme/,$(SVGTHEMES:=/cursor.theme))
+XPMINDICES := $(XPMTHEMES:=/index.theme) $(XPMTHEMES:=/cursor.theme)
+SVGINDICES := $(SVGTHEMES:=/index.theme) $(SVGTHEMES:=/cursor.theme)
 INDICES := $(XPMINDICES) $(SVGINDICES)
 
 XPMS := $(foreach dir,$(XPMTHEMES),$(addprefix xpm/$(dir)/,$(notdir $(SRCXPMS))))
@@ -56,12 +56,12 @@ SVGPNGS := $(foreach dir,$(SVGTHEMES),$(addprefix svgpng/$(dir)/,$(SVGPNGS)))
 SVGPNGS := $(SVGPNGS:.svg=.png)
 PNGS := $(XPMPNGS) $(SVGPNGS)
 
-XPMCURSORS := $(foreach dir,$(XPMTHEMES),$(addprefix xpm_theme/$(dir)/cursors/,$(CURSORSNAMES)))
-SVGCURSORS := $(foreach dir,$(SVGTHEMES),$(addprefix svg_theme/$(dir)/cursors/,$(CURSORSNAMES)))
+XPMCURSORS := $(foreach dir,$(XPMTHEMES),$(addprefix $(dir)/cursors/,$(CURSORSNAMES)))
+SVGCURSORS := $(foreach dir,$(SVGTHEMES),$(addprefix $(dir)/cursors/,$(CURSORSNAMES)))
 CURSORS := $(XPMCURSORS) $(SVGCURSORS)
 
-XPMLINKS := $(foreach dir,$(XPMTHEMES),$(addprefix xpm_theme/$(dir)/cursors/,$(LINKSNAMES)))
-SVGLINKS := $(foreach dir,$(SVGTHEMES),$(addprefix svg_theme/$(dir)/cursors/,$(LINKSNAMES)))
+XPMLINKS := $(foreach dir,$(XPMTHEMES),$(addprefix $(dir)/cursors/,$(LINKSNAMES)))
+SVGLINKS := $(foreach dir,$(SVGTHEMES),$(addprefix $(dir)/cursors/,$(LINKSNAMES)))
 LINKS := $(XPMLINKS) $(SVGLINKS)
 
 all: xpmtheme svgtheme pkg_ocs
@@ -94,7 +94,7 @@ clean_svg:
 clean_png:
 	rm -rf xpmpng svgpng
 clean_themes:
-	rm -rf xpm_theme svg_theme
+	rm -rf retrosmart-*
 
 include install.mk
 include arch.mk

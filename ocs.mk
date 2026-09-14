@@ -1,13 +1,13 @@
-XPMOCSPKGS = $(PKGNAME).tar.xz
+XPMOCSPKGS = $(PKGNAME)-bitmap.tar.xz
 SVGOCSPKGS = $(PKGNAME)-vector.tar.xz
 OCSPKGS = $(XPMOCSPKGS) $(SVGOCSPKGS)
 
 pkg_ocs: $(OCSPKGS)
 
 $(XPMOCSPKGS):
-	cd xpm_theme; tar cJf ../$@ retrosmart-xcursor-*
+	tar cJf $@ retrosmart-bitmap-xcursor-*
 $(SVGOCSPKGS):
-	cd svg_theme; tar cJf ../$@ retrosmart-vector-xcursor-*
+	tar cJf $@ retrosmart-vector-xcursor-*
 
 clean_ocs:
 	rm -rf $(OCSPKGS)

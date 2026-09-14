@@ -8,6 +8,7 @@ xpm_theme/
 svg/
 svgpng/
 svg_theme/
+retrosmart-*
 *.tar.xz
 *.pkg.tar.zst
 *.deb

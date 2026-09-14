@@ -1,25 +1,25 @@
-xpmpng/retrosmart-xcursor-white/%.png: xpm/retrosmart-xcursor-white/%.xpm
+xpmpng/retrosmart-bitmap-xcursor-white/%.png: xpm/retrosmart-bitmap-xcursor-white/%.xpm
 	mkdir -p $(dir $@)
 	$(XPM2PNGCOM) $^ $@
-xpmpng/retrosmart-xcursor-white-shadow/%.png: xpm/retrosmart-xcursor-white-shadow/%.xpm
+xpmpng/retrosmart-bitmap-xcursor-white-shadow/%.png: xpm/retrosmart-bitmap-xcursor-white-shadow/%.xpm
 	mkdir -p $(dir $@)
 	$(XPM2PNGCOM) $^ $(XPM2PNGARGSHADOW) $@
-xpmpng/retrosmart-xcursor-white-color/%.png: xpm/retrosmart-xcursor-white-color/%.xpm
+xpmpng/retrosmart-bitmap-xcursor-white-color/%.png: xpm/retrosmart-bitmap-xcursor-white-color/%.xpm
 	mkdir -p $(dir $@)
 	$(XPM2PNGCOM) $^ $@
-xpmpng/retrosmart-xcursor-white-color-shadow/%.png: xpm/retrosmart-xcursor-white-color-shadow/%.xpm
+xpmpng/retrosmart-bitmap-xcursor-white-color-shadow/%.png: xpm/retrosmart-bitmap-xcursor-white-color-shadow/%.xpm
 	mkdir -p $(dir $@)
 	$(XPM2PNGCOM) $^ $(XPM2PNGARGSHADOW) $@
 
-xpmpng/retrosmart-xcursor-black/%.png: xpm/retrosmart-xcursor-black/%.xpm
+xpmpng/retrosmart-bitmap-xcursor-black/%.png: xpm/retrosmart-bitmap-xcursor-black/%.xpm
 	mkdir -p $(dir $@)
 	$(XPM2PNGCOM) $^ $@
-xpmpng/retrosmart-xcursor-black-shadow/%.png: xpm/retrosmart-xcursor-black-shadow/%.xpm
+xpmpng/retrosmart-bitmap-xcursor-black-shadow/%.png: xpm/retrosmart-bitmap-xcursor-black-shadow/%.xpm
 	mkdir -p $(dir $@)
 	$(XPM2PNGCOM) $^ $(XPM2PNGARGSHADOW) $@
-xpmpng/retrosmart-xcursor-black-color/%.png: xpm/retrosmart-xcursor-black-color/%.xpm
+xpmpng/retrosmart-bitmap-xcursor-black-color/%.png: xpm/retrosmart-bitmap-xcursor-black-color/%.xpm
 	mkdir -p $(dir $@)
 	$(XPM2PNGCOM) $^ $@
-xpmpng/retrosmart-xcursor-black-color-shadow/%.png: xpm/retrosmart-xcursor-black-color-shadow/%.xpm
+xpmpng/retrosmart-bitmap-xcursor-black-color-shadow/%.png: xpm/retrosmart-bitmap-xcursor-black-color-shadow/%.xpm
 	mkdir -p $(dir $@)
 	$(XPM2PNGCOM) $^ $(XPM2PNGARGSHADOW) $@
